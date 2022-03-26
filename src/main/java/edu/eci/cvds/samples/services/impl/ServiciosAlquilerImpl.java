@@ -128,6 +128,7 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
         }
     }
 
+    @Transactional
     @Override
     public void registrarAlquilerCliente(Date date, long docu, Item item, int numdias) throws ExcepcionServiciosAlquiler {
         try {
@@ -140,6 +141,7 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
         }
     }
 
+    @Transactional
     @Override
     public void registrarCliente(Cliente c) throws ExcepcionServiciosAlquiler {
         try {
@@ -151,9 +153,15 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
 
     @Override
     public long consultarCostoAlquiler(int iditem, int numdias) throws ExcepcionServiciosAlquiler {
-        Item item =consultarItem(iditem);
-        if (numdias<0){throw  new ExcepcionServiciosAlquiler(ExcepcionServiciosAlquiler.DIAS_NO_VALIDOS);}
-        return item.getTarifaxDia()*numdias;
+        try {
+            if (itemDAO.load(iditem) == null ){
+                throw new ExcepcionServiciosAlquiler("El Item no existe");
+            }
+            long tarifa = itemDAO.load(iditem).getTarifaxDia();
+            return tarifa * numdias;
+        } catch (PersistenceException e) {
+            throw new ExcepcionServiciosAlquiler("Error al consultar alquiler"+iditem, e);
+        }
     }
 
     @Transactional
@@ -168,7 +176,7 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
         }
     }
 
-    @Transactional
+
     @Override
     public void registrarItem(Item i) throws ExcepcionServiciosAlquiler {
        try {
@@ -178,6 +186,7 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
        }
     }
 
+    @Transactional
     @Override
     public void vetarCliente(long docu, boolean estado) throws ExcepcionServiciosAlquiler {
         try{
@@ -188,4 +197,7 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
             throw new ExcepcionServiciosAlquiler("Error al vetar al cliente con id: " + docu ,persistenceException);
         }
     }
+
+
+
 }

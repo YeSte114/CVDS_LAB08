@@ -74,6 +74,7 @@ public class ServiciosAlquilerItemsStub implements ServiciosAlquiler {
         else{throw new ExcepcionServiciosAlquiler("Cliente no registrado:"+docu);}
     }
 
+
     @Override
     public Item consultarItem(int id) throws ExcepcionServiciosAlquiler {
         Item i = null;
@@ -238,4 +239,5 @@ public class ServiciosAlquilerItemsStub implements ServiciosAlquiler {
         clientes.put(c3.getDocumento(), c3);
 
     }
+    public void registrarTipoItem(TipoItem ti) throws ExcepcionServiciosAlquiler{}
 }

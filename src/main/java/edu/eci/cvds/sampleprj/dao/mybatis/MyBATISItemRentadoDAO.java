@@ -8,7 +8,7 @@ import edu.eci.cvds.samples.entities.ItemRentado;
 
 import java.util.List;
 
-public class MYBATISItemRentadoDAO implements ItemRentadoDAO {
+public class MyBATISItemRentadoDAO implements ItemRentadoDAO {
 
     @Inject
     private ItemRentadoMapper itemRentadoMapper;

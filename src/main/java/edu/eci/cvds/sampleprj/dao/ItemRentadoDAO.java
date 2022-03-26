@@ -7,8 +7,8 @@ import edu.eci.cvds.samples.entities.ItemRentado;
 
 public interface ItemRentadoDAO {
 
-    public ItemRentado load(int idItem) throws PersistenceException;
+    public List<ItemRentado> load(long idClient) throws PersistenceException;
 
-    public List<ItemRentado> loadAll(long idClient) throws PersistenceException;
+    public ItemRentado loadByItem(int idItem) throws PersistenceException;
 
 }

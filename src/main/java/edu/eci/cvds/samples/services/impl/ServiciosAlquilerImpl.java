@@ -13,6 +13,8 @@ import edu.eci.cvds.samples.services.ServiciosAlquiler;
 import org.mybatis.guice.transactional.Transactional;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Singleton
@@ -57,7 +59,7 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
     public List<ItemRentado> consultarItemsCliente(long idCliente) throws ExcepcionServiciosAlquiler {
         try {
             consultarCliente(idCliente);
-            return itemRentadoDAO.loadAll(idCliente);
+            return itemRentadoDAO.load(idCliente);
         } catch (PersistenceException ex){
             throw new ExcepcionServiciosAlquiler("Error al consultar los items del cliente", ex);
         }
@@ -92,16 +94,33 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
 
     @Override
     public long consultarMultaAlquiler(int iditem, Date fechaDevolucion) throws ExcepcionServiciosAlquiler {
-        throw new UnsupportedOperationException("Not supported yet.");
+        try{
+            consultarItem(iditem);
+            ItemRentado itemRentado = itemRentadoDAO.loadByItem(iditem);
+            if (itemRentado == null) throw new ExcepcionServiciosAlquiler(ExcepcionServiciosAlquiler.NO_ITEM_ALQUILER);
+            LocalDate fechaFinal = itemRentado.getFechafinrenta().toLocalDate();
+            long dias = ChronoUnit.DAYS.between(fechaFinal, fechaDevolucion.toLocalDate());
+            System.out.println("Test: " + dias);
+            if (dias < 0) dias = 0;
+            return  dias * valorMultaRetrasoxDia(iditem);
+        } catch (PersistenceException ex){
+            throw new ExcepcionServiciosAlquiler("Error al consultar la multa del alquiler.", ex);
+        }
     }
 
     @Override
     public TipoItem consultarTipoItem(int id) throws ExcepcionServiciosAlquiler {
-        throw new UnsupportedOperationException("Not supported yet.");
+        try{
+            TipoItem tipo = tipoItemDAO.load(id);
+            if (tipo == null) throw new ExcepcionServiciosAlquiler(ExcepcionServiciosAlquiler.TIPO_ITEM_INVALIDO);
+            return tipo;
+        } catch (PersistenceException ex){
+            throw new ExcepcionServiciosAlquiler("Error al consultar el tipo de item", ex);
+        }
     }
 
     @Override
-    public List<TipoItemDAO> consultarTiposItem() throws ExcepcionServiciosAlquiler {
+    public List<TipoItem> consultarTiposItem() throws ExcepcionServiciosAlquiler {
         try {
             return tipoItemDAO.loadTiposItems();
         }catch (PersistenceException ex){
@@ -161,6 +180,12 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
 
     @Override
     public void vetarCliente(long docu, boolean estado) throws ExcepcionServiciosAlquiler {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try{
+            consultarCliente( docu );
+            clienteDAO.updateState(docu,estado);
+        }
+        catch(PersistenceException persistenceException){
+            throw new ExcepcionServiciosAlquiler("Error al vetar al cliente con id: " + docu ,persistenceException);
+        }
     }
 }

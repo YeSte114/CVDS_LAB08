@@ -1,6 +1,5 @@
 package edu.eci.cvds.samples.services.impl;
 
-import edu.eci.cvds.sampleprj.dao.TipoItemDAO;
 import edu.eci.cvds.samples.entities.Cliente;
 import edu.eci.cvds.samples.entities.Item;
 import edu.eci.cvds.samples.entities.ItemRentado;
@@ -123,7 +122,7 @@ public class ServiciosAlquilerItemsStub implements ServiciosAlquiler {
     }
 
     @Override
-    public List<TipoItemDAO> consultarTiposItem() throws ExcepcionServiciosAlquiler {
+    public List<TipoItem> consultarTiposItem() throws ExcepcionServiciosAlquiler {
         return  new LinkedList<>(tipositems.values());
     }
 

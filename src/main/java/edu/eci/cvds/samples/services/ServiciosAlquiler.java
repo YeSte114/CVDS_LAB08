@@ -1,6 +1,5 @@
 package edu.eci.cvds.samples.services;
 
-import edu.eci.cvds.sampleprj.dao.TipoItemDAO;
 import edu.eci.cvds.samples.entities.Cliente;
 import edu.eci.cvds.samples.entities.Item;
 import edu.eci.cvds.samples.entities.ItemRentado;
@@ -47,7 +46,7 @@ public interface ServiciosAlquiler {
 
     public abstract TipoItem consultarTipoItem(int id) throws ExcepcionServiciosAlquiler;
 
-    public abstract List<TipoItemDAO> consultarTiposItem() throws ExcepcionServiciosAlquiler;
+    public abstract List<TipoItem> consultarTiposItem() throws ExcepcionServiciosAlquiler;
 
     /**
      * @obj rejistrar el alkiler de un item

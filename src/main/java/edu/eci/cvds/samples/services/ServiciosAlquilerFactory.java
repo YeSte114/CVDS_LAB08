@@ -5,7 +5,7 @@ import edu.eci.cvds.sampleprj.dao.ItemDAO;
 import edu.eci.cvds.sampleprj.dao.mybatis.MyBATISClienteDAO;
 import edu.eci.cvds.sampleprj.dao.mybatis.MyBATISItemDAO;
 import edu.eci.cvds.sampleprj.dao.mybatis.MyBATISTipoItemDAO;
-import edu.eci.cvds.samples.services.impl.ServiciosAlquilerItemsImpl;
+import edu.eci.cvds.samples.services.impl.ServiciosAlquilerImpl;
 import org.mybatis.guice.XMLMyBatisModule;
 
 import java.util.Optional;
@@ -25,7 +25,7 @@ public class ServiciosAlquilerFactory {
                 setEnvironmentId(env);
                 setClassPathResource(pathResource);
                 bind(ItemDAO.class).to(MyBATISItemDAO.class);
-                bind(ServiciosAlquiler.class).to(ServiciosAlquilerItemsImpl.class);
+                bind(edu.eci.cvds.samples.services.ServiciosAlquiler.class).to(ServiciosAlquilerImpl.class);
             }
         });
     }
@@ -34,21 +34,21 @@ public class ServiciosAlquilerFactory {
         optInjector = Optional.empty();
     }
 
-    public ServiciosAlquiler getServiciosAlquiler(){
+    public edu.eci.cvds.samples.services.ServiciosAlquiler getServiciosAlquiler(){
         if (!optInjector.isPresent()) {
             optInjector = Optional.of(myBatisInjector("development","mybatis-config.xml"));
         }
 
-        return optInjector.get().getInstance(ServiciosAlquiler.class);
+        return optInjector.get().getInstance(edu.eci.cvds.samples.services.ServiciosAlquiler.class);
     }
 
 
-    public ServiciosAlquiler getServiciosAlquilerTesting(){
+    public edu.eci.cvds.samples.services.ServiciosAlquiler getServiciosAlquilerTesting(){
         if (!optInjector.isPresent()) {
             optInjector = Optional.of(myBatisInjector("test","mybatis-config-h2.xml"));
         }
 
-        return optInjector.get().getInstance(ServiciosAlquiler.class);
+        return optInjector.get().getInstance(edu.eci.cvds.samples.services.ServiciosAlquiler.class);
     }
 
 

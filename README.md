@@ -1,3 +1,7 @@
+[![CircleCI](https://circleci.com/gh/YeSte114/CVDS_LAB08/tree/main.svg?style=svg)](https://circleci.com/gh/YeSte114/CVDS_LAB08/tree/main)
+
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/2728a3632878459abe29e5ad8996c25c)](https://www.codacy.com/gh/YeSte114/CVDS_LAB08/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=YeSte114/CVDS_LAB08&amp;utm_campaign=Badge_Grade)
+
 # Laboratorio 8 - MYBATIS-GUICE-PRIMEFACES - 2021-1
 ## ESCUELA COLOMBIANA DE INGENIERIA JULIO GARAVITO
 ## CICLOS DE VIDA DEL DESARROLLO DE SOFTWARE - CVDS

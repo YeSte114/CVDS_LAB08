@@ -83,6 +83,7 @@
     </dependencies>
 
     <build>
+        <finalName>WebApp</finalName>
         <plugins>
             <!-- clean project (also local H2 database)-->
             <plugin>

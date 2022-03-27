@@ -140,7 +140,7 @@ public class ServiciosAlquilerTest {
                     "estufa", "bueno", new SimpleDateFormat("yyyy/MM/dd").parse("2020/09/28"),
                     40,"Cualquiera","99");
             serviciosAlquiler.registrarItem(it);
-            if(serviciosAlquiler.consultarItem(60).getNombre().equals("Computador")) {
+            if(serviciosAlquiler.consultarItem(-990)!=null) {
                 assertTrue(true);
             }
             else{
